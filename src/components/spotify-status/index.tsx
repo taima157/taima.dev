@@ -29,7 +29,7 @@ function SpotifyPlayingStatus({
 
   return (
     <span
-      className={`${color} ${jetBrainsMono.className} ${isPlaying ? "animate-pulse" : ""} uppercase text-sm font-semibold align-middle flex items-center`}
+      className={`${color} ${jetBrainsMono.className} ${isPlaying ? "animate-pulse" : ""} uppercase text-sm  align-middle flex items-center`}
     >
       {status}
       <div className="rounded-full bg-current w-[0.4rem] h-[0.4rem] ml-2 inline-block" />
@@ -40,13 +40,13 @@ function SpotifyPlayingStatus({
 function SpotifySkeleton() {
   return (
     <div className="flex gap-4 items-center">
-      <div className="h-20 w-20 rounded-sm bg-white/5 animate-pulse" />
-
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 items-end text-right">
         <div className="h-4 w-20 bg-white/5 animate-pulse rounded" />
         <div className="h-5 w-32 bg-white/5 animate-pulse rounded" />
         <div className="h-4 w-40 bg-white/5 animate-pulse rounded" />
       </div>
+
+      <div className="h-20 w-20 rounded-sm bg-white/5 animate-pulse" />
     </div>
   );
 }
@@ -70,21 +70,13 @@ export function SpotifyStatus() {
           isPlaying={!!data?.isPlaying}
         />
 
-        {isOnline ? (
-          <span className="block truncate w-full overflow-hidden">
-            {data.title}
-          </span>
-        ) : (
-          <div className="h-5 w-32 bg-white/5 animate-pulse block rounded" />
-        )}
+        <span className="block truncate w-full overflow-hidden">
+          {isOnline ? data.title : "spotify offline"}
+        </span>
 
-        {isOnline ? (
-          <span className="block text-xs text-stone-400 truncate w-full overflow-hidden">
-            {data.artist} - {data.album}
-          </span>
-        ) : (
-          <div className="h-4 w-40 bg-white/5 animate-pulse rounded" />
-        )}
+        <span className="block text-xs text-stone-400 truncate w-full overflow-hidden">
+          {isOnline ? `${data.artist} - ${data.album}` : ";-;"}
+        </span>
       </div>
 
       {isOnline && data?.image?.url ? (
