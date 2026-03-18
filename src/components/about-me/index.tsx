@@ -7,9 +7,9 @@ const jetBrainsMono = JetBrains_Mono({
 
 export function AboutMe() {
   return (
-    <div className="w-full flex flex-col gap-5">
+    <section className="w-full flex flex-col gap-5">
       <div
-        className={`${jetBrainsMono.className} text-sm flex flex-col gap-2 text-slate-300`}
+        className={`${jetBrainsMono.className} text-sm flex flex-col gap-2 text-stone-400`}
       >
         <span>{"->"} systems development student</span>
         <span>{"->"} java developer (some react knowledge)</span>
@@ -22,6 +22,6 @@ export function AboutMe() {
         little over three years and have knowledge with TypeScript, Python,
         React, and React Native as well.
       </p>
-    </div>
+    </section>
   );
 }
