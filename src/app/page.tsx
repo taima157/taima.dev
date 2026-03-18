@@ -1,4 +1,5 @@
 import { AboutMe } from "@/components/about-me";
+import { Social } from "@/components/social";
 import { SpotifyStatus } from "@/components/spotify-status";
 
 export default function Home() {
@@ -15,6 +16,8 @@ export default function Home() {
         <AboutMe />
 
         <hr className="text-stone-800" />
+
+        <Social />
       </div>
     </main>
   );

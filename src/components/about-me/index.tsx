@@ -1,16 +1,7 @@
-import { JetBrains_Mono } from "next/font/google";
-
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-});
-
 export function AboutMe() {
   return (
     <section className="w-full flex flex-col gap-5">
-      <div
-        className={`${jetBrainsMono.className} text-sm flex flex-col gap-2 text-stone-400`}
-      >
+      <div className={`font-mono text-sm flex flex-col gap-2 text-stone-400`}>
         <span>{"->"} systems development student</span>
         <span>{"->"} java developer (some react knowledge)</span>
         <span>{"->"} 23 years old, animes and games</span>
