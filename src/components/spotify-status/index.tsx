@@ -1,15 +1,9 @@
 "use client";
 
 import { SpotifyCurrentTrackResponse } from "@/types/spotify";
-import { JetBrains_Mono } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
-
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-});
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -29,7 +23,7 @@ function SpotifyPlayingStatus({
 
   return (
     <span
-      className={`${color} ${jetBrainsMono.className} ${isPlaying ? "animate-pulse" : ""} uppercase text-sm  align-middle flex items-center`}
+      className={`${color} font-mono ${isPlaying ? "animate-pulse" : ""} uppercase text-sm  align-middle flex items-center`}
     >
       {status}
       <div className="rounded-full bg-current w-[0.4rem] h-[0.4rem] ml-2 inline-block" />
