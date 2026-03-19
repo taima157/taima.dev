@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
-import { Google_Sans, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Manrope } from "next/font/google";
+import localFont from "next/font/local";
+
 import "./globals.css";
 
-const googleSans = Google_Sans({
+export const satoshi = localFont({
+  src: "../../public/fonts/Satoshi-Variable.woff2",
+  variable: "--font-satoshi",
+  weight: "100 900",
+});
+
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-google-sans",
+  variable: "--font-manrope",
 });
 
 const jetBrainsMono = JetBrains_Mono({
@@ -15,6 +23,9 @@ const jetBrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "taima.dev",
   description: "Just a brazilian developer's personal website.",
+  icons: {
+    icon: "/icon.jpg",
+  },
 };
 
 export default function RootLayout({
@@ -25,9 +36,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${googleSans.variable} ${jetBrainsMono.variable} bg-stone-950 text-slate-100`}
+      className={`${satoshi.variable} ${manrope.variable} ${jetBrainsMono.variable} bg-stone-950`}
     >
-      <body className="font-sans">{children}</body>
+      <body className="font-manrope text-stone-200">{children}</body>
     </html>
   );
 }

@@ -1,5 +1,5 @@
 import { Artist, SpotifyCurrentTrackResponse } from "@/types/spotify";
-import { getAccessToken, getCurrentlyPlaying } from "@/utils/spotify";
+import { getAccessToken, getCurrentlyPlaying } from "@/lib/spotify";
 import { NextResponse } from "next/server";
 
 export async function GET() {

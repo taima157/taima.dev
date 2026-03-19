@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-google-sans)"],
+        sans: ["var(--font-manrope)"],
         mono: ["var(--font-jetbrains-mono)"],
       },
 
