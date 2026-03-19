@@ -1,4 +1,6 @@
 import { AboutMe } from "@/components/about-me";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import { Projects } from "@/components/projects";
 import { Social } from "@/components/social";
 import { SpotifyStatus } from "@/components/spotify-status";
@@ -7,7 +9,9 @@ import { SteamStatus } from "@/components/steam-status";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen w-full items-center p-4 flex-col gap-10">
+    <main className="flex min-h-screen w-full items-center p-4 flex-col gap-5">
+      <Header />
+
       <div className="bg-white/2 border max-w-200 w-full border-white/2 rounded-sm p-4 sm:p-8 flex flex-col gap-12">
         <div className="w-full flex flex-col gap-15">
           <div className="flex justify-between items-center flex-col sm:flex-row gap-10">
@@ -33,11 +37,7 @@ export default function Home() {
         <Social />
       </div>
 
-      <footer className="flex max-w-200 w-full">
-        <span className="w-full text-sm font-mono text-zinc-500">
-          © 2026 powered by taima
-        </span>
-      </footer>
+      <Footer />
     </main>
   );
 }
