@@ -9,9 +9,9 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 export function SteamMostPlayedSkeleton() {
   return (
     <div className="grid gap-4 items-center w-full sm:grid-cols-3">
-      <div className="h-20 w-full bg-white/5 animate-pulse backdrop-blur flex rounded-md pl-2 pr-2 border border-white/4"></div>
-      <div className="h-20 w-full bg-white/5 animate-pulse backdrop-blur flex rounded-md pl-2 pr-2 border border-white/4"></div>
-      <div className="h-20 w-full bg-white/5 animate-pulse backdrop-blur flex rounded-md pl-2 pr-2 border border-white/4"></div>
+      <div className="h-20 w-full bg-white/2 animate-pulse backdrop-blur flex rounded-md pl-2 pr-2 border border-white/4"></div>
+      <div className="h-20 w-full bg-white/2 animate-pulse backdrop-blur flex rounded-md pl-2 pr-2 border border-white/4"></div>
+      <div className="h-20 w-full bg-white/2 animate-pulse backdrop-blur flex rounded-md pl-2 pr-2 border border-white/4"></div>
     </div>
   );
 }

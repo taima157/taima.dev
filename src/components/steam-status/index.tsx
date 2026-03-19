@@ -11,7 +11,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 function SteamSkeleton() {
   return (
     <div className="flex gap-4 items-center w-full">
-      <div className="h-20 w-20 rounded-md bg-white/5 shrink-0 flex items-center justify-center">
+      <div className="h-20 w-20 rounded-md bg-white/2 shrink-0 flex items-center justify-center">
         <VideogameAsset
           className="text-zinc-800"
           style={{ width: 40, height: 40 }}
@@ -19,14 +19,14 @@ function SteamSkeleton() {
       </div>
 
       <div className="flex flex-col items-start gap-2 flex-1 min-w-0">
-        <div className="h-4 w-24 bg-white/5 animate-pulse backdrop-blur rounded" />
+        <div className="h-4 w-24 bg-white/2 animate-pulse backdrop-blur rounded" />
 
         <div className="flex items-center gap-2 w-full">
-          <div className="h-6 w-6 rounded bg-white/5 animate-pulse backdrop-blur shrink-0" />
+          <div className="h-6 w-6 rounded bg-white/2 animate-pulse backdrop-blur shrink-0" />
 
           <div className="flex flex-col gap-1 w-full">
-            <div className="h-4 w-40 bg-white/5 animate-pulse backdrop-blur rounded" />
-            <div className="h-4 w-28 bg-white/5 animate-pulse backdrop-blur rounded" />
+            <div className="h-4 w-40 bg-white/2 animate-pulse backdrop-blur rounded" />
+            <div className="h-4 w-28 bg-white/2 animate-pulse backdrop-blur rounded" />
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@ export function SteamStatus() {
           height={80}
         />
       ) : (
-        <div className="h-20 w-20 rounded-md bg-white/5 shrink-0 flex items-center justify-center">
+        <div className="h-20 w-20 rounded-md bg-white/2 shrink-0 flex items-center justify-center">
           <VideogameAsset
             className="text-zinc-800"
             style={{ width: 40, height: 40 }}
