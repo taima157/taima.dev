@@ -41,7 +41,7 @@ function SpotifySkeleton() {
         <div className="h-4 w-40 bg-white/2 animate-pulse backdrop-blur rounded" />
       </div>
 
-      <div className="h-20 w-20 rounded-sm bg-white/2 flex items-center justify-center">
+      <div className="h-20 w-20 rounded-sm bg-white/2 flex items-center justify-center border border-white/4">
         <Headphones
           className="text-zinc-800"
           style={{ width: 40, height: 40 }}
@@ -103,7 +103,7 @@ export function SpotifyStatus() {
           rel="noopener noreferrer"
         >
           <Image
-            className="rounded-md block"
+            className="rounded-md shrink-0 border border-white/4"
             src={track.image.url}
             alt="Spotify current track image"
             width={80}

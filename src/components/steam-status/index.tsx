@@ -11,7 +11,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 function SteamSkeleton() {
   return (
     <div className="flex gap-4 items-center w-full">
-      <div className="h-20 w-20 rounded-md bg-white/2 shrink-0 flex items-center justify-center">
+      <div className="h-20 w-20 rounded-md bg-white/2 shrink-0 flex items-center justify-center border border-white/4">
         <VideogameAsset
           className="text-zinc-800"
           style={{ width: 40, height: 40 }}
@@ -83,7 +83,7 @@ export function SteamStatus() {
     <div className="flex gap-4 items-center w-full">
       {data?.user ? (
         <Image
-          className="rounded-md block"
+          className="rounded-md shrink-0 border border-white/4"
           src={data.user.avatarfull}
           alt="Steam user avatar"
           width={80}

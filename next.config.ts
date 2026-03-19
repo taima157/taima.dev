@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["shared.akamai.steamstatic.com"],
     remotePatterns: [
       new URL("https://i.scdn.co/**"),
       new URL("https://avatars.steamstatic.com/**"),

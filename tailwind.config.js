@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["var(--font-manrope)"],
-        mono: ["var(--font-jetbrains-mono)"],
+        mono: ["var(--font-sans-code)"],
       },
 
       colors: {
