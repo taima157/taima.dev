@@ -1,5 +1,10 @@
 import { getSafeEnv, getFetch, postFetch, HttpError } from "@/lib/http";
-import { SpotifyCurrentTrack, SpotifyToken } from "@/types/spotify";
+import {
+  Artist,
+  SpotifyCurrentTrack,
+  SpotifyCurrentTrackResponse,
+  SpotifyToken,
+} from "@/types/spotify";
 
 let tokenCache: {
   accessToken: string;
@@ -83,4 +88,28 @@ export async function getCurrentTrack() {
 
     throw error;
   }
+}
+
+export async function getSpotifyCurrentStatus(): Promise<SpotifyCurrentTrackResponse> {
+  const currentTrack = await getCurrentTrack();
+
+  if (!currentTrack || !currentTrack.item) {
+    return {
+      online: false,
+    };
+  }
+
+  const item = currentTrack.item;
+
+  return {
+    online: true,
+    track: {
+      isPlaying: currentTrack.is_playing,
+      title: item.name,
+      artist: item.artists.map((a: Artist) => a.name).join(" | "),
+      album: item.album.name,
+      image: item.album.images[0],
+      url: item.external_urls.spotify,
+    },
+  };
 }

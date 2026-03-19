@@ -61,24 +61,25 @@ export function SpotifyStatus() {
   if (isLoading) return <SpotifySkeleton />;
 
   const isOnline = data?.online;
+  const track = data?.track;
 
   return (
     <div className="flex gap-4 items-center w-full justify-end">
       <div className="flex flex-col gap-1 flex-1 min-w-0 items-end text-right">
         <SpotifyPlayingStatus
           online={!!isOnline}
-          isPlaying={!!data?.isPlaying}
+          isPlaying={!!track?.isPlaying}
         />
 
-        {isOnline ? (
+        {isOnline && track ? (
           <Link
             className="hover:underline"
-            href={data.url}
+            href={track.url}
             target="_blank"
             rel="noopener noreferrer"
           >
             <span className="block truncate w-full overflow-hidden">
-              {data.title}
+              {track.title}
             </span>
           </Link>
         ) : (
@@ -88,20 +89,20 @@ export function SpotifyStatus() {
         )}
 
         <span className="block text-xs text-stone-400 truncate w-full overflow-hidden">
-          {isOnline ? `${data.artist} - ${data.album}` : ";-;"}
+          {isOnline && track ? `${track.artist} - ${track.album}` : ";-;"}
         </span>
       </div>
 
-      {isOnline && data?.image?.url ? (
+      {isOnline && track?.image?.url ? (
         <Link
           className="shrink-0"
-          href={data.url}
+          href={track.url}
           target="_blank"
           rel="noopener noreferrer"
         >
           <Image
             className="rounded-md block"
-            src={data.image.url}
+            src={track.image.url}
             alt="Spotify current track image"
             width={80}
             height={80}

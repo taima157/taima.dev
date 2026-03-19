@@ -1,4 +1,5 @@
 import {
+  SteamCurrentStatus,
   SteamGameDetailResponse,
   SteamGameIconResponse,
   SteamUserSummaryResponse,
@@ -64,4 +65,38 @@ export async function getSteamGameIcon(gameId: string) {
     console.error("Error fetching Steam game icon:", error);
     return null;
   }
+}
+
+export async function getSteamCurrentStatus(): Promise<SteamCurrentStatus | null> {
+  const steamSummary = await getSteamSummary();
+
+  if (!steamSummary) return null;
+
+  const userData = {
+    personaname: steamSummary.personaname,
+    profileurl: steamSummary.profileurl,
+    avatarfull: steamSummary.avatarfull,
+  };
+
+  if (!steamSummary.gameid) {
+    return {
+      isPlaying: false,
+      user: userData,
+    };
+  }
+
+  const [gameDetail, gameIcon] = await Promise.all([
+    getSteamGameDetail(steamSummary.gameid),
+    getSteamGameIcon(steamSummary.gameid),
+  ]);
+
+  return {
+    isPlaying: true,
+    user: userData,
+    game: {
+      name: gameDetail?.name,
+      publishers: gameDetail?.publishers,
+      icon: gameIcon?.thumb,
+    },
+  } as SteamCurrentStatus;
 }

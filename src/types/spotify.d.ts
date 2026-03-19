@@ -6,14 +6,18 @@ export type SpotifyToken = {
   refresh_token: string;
 };
 
-export type SpotifyCurrentTrackResponse = {
-  online: boolean;
+export type SpotifyTrack = {
   isPlaying: boolean;
   title: string;
   artist: string;
   album: string;
   image: Image;
   url: string;
+};
+
+export type SpotifyCurrentTrackResponse = {
+  online: boolean;
+  track?: SpotifyTrack;
 };
 
 export interface SpotifyCurrentTrack {
