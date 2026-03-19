@@ -10,7 +10,7 @@ export default function Home() {
       <div className="bg-white/2 border w-200 border-white/2 rounded-sm p-4 sm:p-8 flex flex-col gap-8">
         <div className="w-full flex flex-col gap-15">
           <div className="flex justify-between items-center flex-col sm:flex-row gap-10">
-            <h1 className="text-4xl font-bold text-zinc-50 w-full">
+            <h1 className="text-3xl font-bold text-zinc-50 w-full">
               taima.dev
             </h1>
             <SpotifyStatus />
