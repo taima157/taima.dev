@@ -9,22 +9,22 @@ export default function Home() {
     <main className="flex min-h-screen justify-center p-4">
       <div className="bg-white/2 border w-200 border-white/2 rounded-sm p-4 sm:p-8 flex flex-col gap-8">
         <div className="flex justify-between items-center flex-col sm:flex-row gap-10">
-          <h1 className="text-2xl font-bold text-stone-50 w-full">taima.dev</h1>
+          <h1 className="text-4xl font-bold text-zinc-50 w-full">taima.dev</h1>
           <SpotifyStatus />
         </div>
 
-        <hr className="text-stone-800" />
+        <hr className="text-zinc-800" />
 
         <AboutMe />
 
-        <hr className="text-stone-800" />
+        <hr className="text-zinc-800" />
 
         <div className="flex w-full gap-6 sm:gap-4 items-end sm:items-start flex-col sm:flex-row">
           <SteamStatus />
           <SteamMostPlayed />
         </div>
 
-        <hr className="text-stone-800" />
+        <hr className="text-zinc-800" />
 
         <Social />
       </div>

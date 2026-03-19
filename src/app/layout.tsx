@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Manrope } from "next/font/google";
+import { Manrope, Google_Sans_Code } from "next/font/google";
 
 import "./globals.css";
 
@@ -8,9 +8,9 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
-const jetBrainsMono = JetBrains_Mono({
+const googleSansCode = Google_Sans_Code({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-sans-code",
 });
 
 export const metadata: Metadata = {
@@ -29,9 +29,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${jetBrainsMono.variable} bg-stone-950`}
+      className={`${manrope.variable} ${googleSansCode.variable} bg-zinc-950`}
     >
-      <body className="font-manrope text-stone-200">{children}</body>
+      <body className="font-manrope text-zinc-200">{children}</body>
     </html>
   );
 }

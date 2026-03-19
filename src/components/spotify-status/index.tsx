@@ -20,14 +20,14 @@ function SpotifyPlayingStatus({
     ? isPlaying
       ? "text-green-500"
       : "text-yellow-500"
-    : "text-stone-600";
+    : "text-zinc-500";
 
   return (
     <span
-      className={`${color} font-mono ${isPlaying ? "animate-pulse backdrop-blur" : ""} uppercase text-sm  align-middle flex items-center`}
+      className={`${color} ${isPlaying ? "animate-pulse backdrop-blur" : ""} gap-2 uppercase font-semibold text-sm align-middle flex items-center`}
     >
       {status}
-      <div className="rounded-full bg-current w-[0.4rem] h-[0.4rem] ml-2 inline-block" />
+      <div className="rounded-full bg-current w-[0.4rem] h-[0.4rem] inline-block" />
     </span>
   );
 }
@@ -43,7 +43,7 @@ function SpotifySkeleton() {
 
       <div className="h-20 w-20 rounded-sm bg-white/4 flex items-center justify-center">
         <Headphones
-          className="text-stone-800"
+          className="text-zinc-800"
           style={{ width: 40, height: 40 }}
         />
       </div>
@@ -84,17 +84,13 @@ export function SpotifyStatus() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="block truncate w-full overflow-hidden">
-              {track.title}
-            </span>
+            <span className="line-clamp-1 font-mono">{track.title}</span>
           </Link>
         ) : (
-          <span className="block truncate w-full overflow-hidden">
-            spotify offline
-          </span>
+          <span className="line-clamp-1 font-mono">spotify offline</span>
         )}
 
-        <span className="block text-xs text-stone-400 truncate w-full overflow-hidden">
+        <span className="block text-xs text-zinc-500 truncate w-full overflow-hidden">
           {isOnline && track ? `${track.artist} - ${track.album}` : ";-;"}
         </span>
       </div>
@@ -117,7 +113,7 @@ export function SpotifyStatus() {
       ) : (
         <div className="h-20 w-20 rounded-sm bg-white/4 flex items-center justify-center">
           <Headphones
-            className="text-stone-800"
+            className="text-zinc-800"
             style={{ width: 40, height: 40 }}
           />
         </div>

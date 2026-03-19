@@ -4,7 +4,7 @@ import { SocialIcon } from "../social-icon";
 export function Social() {
   return (
     <section className="flex flex-col gap-4 w-full sm:w-[75%]">
-      <h2 className="lowercase font-mono text-stone-400 text-md">Social</h2>
+      <h2 className="lowercase font-mono text-zinc-500 text-md">Social</h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
         <SocialIcon

@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-mono: var(--font-jetbrains-mono);
+  --font-mono: var(--font-sans-code);
   --font-manrope: var(--font-manrope);
-  --font-satoshi: var(--font-satoshi);
 }

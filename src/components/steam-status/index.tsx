@@ -13,7 +13,7 @@ function SteamSkeleton() {
     <div className="flex gap-4 items-center w-full">
       <div className="h-20 w-20 rounded-md bg-white/5 shrink-0 flex items-center justify-center">
         <VideogameAsset
-          className="text-stone-800"
+          className="text-zinc-800"
           style={{ width: 40, height: 40 }}
         />
       </div>
@@ -43,7 +43,7 @@ function SteamPlayingStatus({
 }) {
   if (!isPlaying || !game) {
     return (
-      <span className="text-stone-600 font-semibold align-middle flex items-center">
+      <span className="text-zinc-500 font-semibold align-middle flex items-center">
         offline from steam ;-;
       </span>
     );
@@ -92,7 +92,7 @@ export function SteamStatus() {
       ) : (
         <div className="h-20 w-20 rounded-md bg-white/5 shrink-0 flex items-center justify-center">
           <VideogameAsset
-            className="text-stone-800"
+            className="text-zinc-800"
             style={{ width: 40, height: 40 }}
           />
         </div>
