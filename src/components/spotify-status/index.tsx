@@ -71,7 +71,7 @@ export function SpotifyStatus() {
 
   return (
     <div className="flex gap-4 items-center w-full justify-end">
-      <div className="flex flex-col gap-1 flex-1 min-w-0 items-end text-right">
+      <div className="flex flex-col gap-1 flex-1 min-w-0 w-full items-end text-right">
         <SpotifyPlayingStatus
           online={!!isOnline}
           isPlaying={!!track?.isPlaying}
@@ -90,7 +90,7 @@ export function SpotifyStatus() {
           <span className="line-clamp-1 font-mono">spotify offline</span>
         )}
 
-        <span className="block text-xs text-zinc-500 truncate w-full overflow-hidden">
+        <span className="text-xs text-zinc-500 line-clamp-1">
           {isOnline && track ? `${track.artist} - ${track.album}` : ";-;"}
         </span>
       </div>
