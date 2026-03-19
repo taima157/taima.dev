@@ -7,8 +7,8 @@ import { SteamStatus } from "@/components/steam-status";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center p-4 flex-col gap-10">
-      <div className="bg-white/2 border w-200 border-white/2 rounded-sm p-4 sm:p-8 flex flex-col gap-12">
+    <main className="flex min-h-screen w-full items-center p-4 flex-col gap-10">
+      <div className="bg-white/2 border max-w-200 w-full border-white/2 rounded-sm p-4 sm:p-8 flex flex-col gap-12">
         <div className="w-full flex flex-col gap-15">
           <div className="flex justify-between items-center flex-col sm:flex-row gap-10">
             <h1 className="text-3xl font-bold text-zinc-50 w-full">
@@ -33,8 +33,8 @@ export default function Home() {
         <Social />
       </div>
 
-      <footer className="flex w-200">
-        <span className="text-sm font-mono text-zinc-500">
+      <footer className="flex max-w-200 w-full">
+        <span className="w-full text-sm font-mono text-zinc-500">
           © 2026 powered by taima
         </span>
       </footer>
