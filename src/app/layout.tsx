@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Manrope } from "next/font/google";
-import localFont from "next/font/local";
 
 import "./globals.css";
-
-export const satoshi = localFont({
-  src: "../../public/fonts/Satoshi-Variable.woff2",
-  variable: "--font-satoshi",
-  weight: "100 900",
-});
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -36,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${satoshi.variable} ${manrope.variable} ${jetBrainsMono.variable} bg-stone-950`}
+      className={`${manrope.variable} ${jetBrainsMono.variable} bg-stone-950`}
     >
       <body className="font-manrope text-stone-200">{children}</body>
     </html>

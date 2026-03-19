@@ -14,6 +14,7 @@ export type SteamUserSummaryResponse = {
 export type SteamGameDetail = {
   name: string;
   publishers: string[];
+  header_image: string;
 };
 
 export type SteamGameDetailResponse = {
@@ -45,4 +46,22 @@ export type SteamCurrentStatus = {
   };
   isPlaying: boolean;
   game?: SteamGame;
+};
+
+export type SteamOwnedGame = {
+  appid: number;
+  playtime_forever: number;
+};
+
+export type SteamOwnedGameResponse = {
+  response: {
+    game_count: number;
+    games: SteamOwnedGame[];
+  };
+};
+
+export type SteamMostPlayedResponse = {
+  name: string;
+  playtimeForever: number;
+  headerImage: string;
 };

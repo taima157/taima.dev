@@ -41,7 +41,7 @@ function SpotifySkeleton() {
         <div className="h-4 w-40 bg-white/5 animate-pulse backdrop-blur rounded" />
       </div>
 
-      <div className="h-20 w-20 rounded-sm bg-white/4 flex items-center animate-pulse backdrop-blur justify-center">
+      <div className="h-20 w-20 rounded-sm bg-white/4 flex items-center justify-center">
         <Headphones
           className="text-stone-800"
           style={{ width: 40, height: 40 }}
@@ -55,7 +55,13 @@ export function SpotifyStatus() {
   const { data, isLoading } = useSWR<SpotifyCurrentTrackResponse>(
     "/api/spotify/current",
     fetcher,
-    { refreshInterval: 5000 },
+    {
+      refreshInterval: (data) => {
+        if (!data) return 5000;
+
+        return data.online ? 5000 : 15000;
+      },
+    },
   );
 
   if (isLoading) return <SpotifySkeleton />;

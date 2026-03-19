@@ -11,7 +11,12 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 function SteamSkeleton() {
   return (
     <div className="flex gap-4 items-center w-full">
-      <div className="h-20 w-20 rounded-md bg-white/5 animate-pulse backdrop-blur shrink-0" />
+      <div className="h-20 w-20 rounded-md bg-white/5 shrink-0 flex items-center justify-center">
+        <VideogameAsset
+          className="text-stone-800"
+          style={{ width: 40, height: 40 }}
+        />
+      </div>
 
       <div className="flex flex-col items-start gap-2 flex-1 min-w-0">
         <div className="h-4 w-24 bg-white/5 animate-pulse backdrop-blur rounded" />
