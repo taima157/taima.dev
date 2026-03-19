@@ -74,6 +74,7 @@ export async function getSteamOwnedGames(): Promise<SteamOwnedGame[]> {
   const params = new URLSearchParams({
     key: steamApiKey,
     steamid: steamId,
+    include_played_free_games: "true",
   });
 
   try {
