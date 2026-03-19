@@ -1,11 +1,10 @@
+import { getCurrentTrack } from "@/lib/spotify";
 import { Artist, SpotifyCurrentTrackResponse } from "@/types/spotify";
-import { getAccessToken, getCurrentlyPlaying } from "@/lib/spotify";
 import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const accessToken = await getAccessToken();
-    const currentTrack = await getCurrentlyPlaying(accessToken);
+    const currentTrack = await getCurrentTrack();
 
     if (!currentTrack) {
       return NextResponse.json({
@@ -13,14 +12,16 @@ export async function GET() {
       });
     }
 
+    const item = currentTrack.item;
+
     return NextResponse.json({
       online: true,
       isPlaying: currentTrack.is_playing,
-      title: currentTrack.item?.name,
-      artist: currentTrack.item?.artists.map((a: Artist) => a.name).join(" | "),
-      album: currentTrack.item?.album.name,
-      image: currentTrack.item?.album.images[0],
-      url: currentTrack.item?.external_urls.spotify,
+      title: item?.name,
+      artist: item?.artists.map((a: Artist) => a.name).join(" | "),
+      album: item?.album.name,
+      image: item?.album.images[0],
+      url: item?.external_urls.spotify,
     } as SpotifyCurrentTrackResponse);
   } catch (error) {
     console.error("Error fetching Spotify data:", error);

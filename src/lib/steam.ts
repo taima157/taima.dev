@@ -3,64 +3,65 @@ import {
   SteamGameIconResponse,
   SteamUserSummaryResponse,
 } from "@/types/steam";
+import { getSafeEnv, getFetch } from "@/lib/http";
 
 export async function getSteamSummary() {
-  const steamId = process.env.STEAM_ID!;
-  const steamApiKey = process.env.STEAM_API_KEY!;
+  const steamId = getSafeEnv("STEAM_ID");
+  const steamApiKey = getSafeEnv("STEAM_API_KEY");
 
   const params = new URLSearchParams({
     key: steamApiKey,
     steamids: steamId,
   });
 
-  const res = await fetch(
-    `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2?${params.toString()}`,
-    {
-      method: "GET",
-    },
-  );
+  try {
+    const { result } = await getFetch<SteamUserSummaryResponse>(
+      `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2?${params.toString()}`,
+    );
 
-  const result = (await res.json()) as SteamUserSummaryResponse;
-  const player = result.response.players[0];
-
-  return !!player ? player : null;
+    return result?.response?.players?.[0] ?? null;
+  } catch (error) {
+    console.error("Error fetching Steam user summary:", error);
+    return null;
+  }
 }
 
 export async function getSteamGameDetail(gameId: string) {
-  const params = new URLSearchParams({
-    appids: gameId,
-  });
+  const params = new URLSearchParams({ appids: gameId });
 
-  const res = await fetch(
-    `https://store.steampowered.com/api/appdetails?${params.toString()}`,
-    {
-      method: "GET",
-    },
-  );
+  try {
+    const { result } = await getFetch<SteamGameDetailResponse>(
+      `https://store.steampowered.com/api/appdetails?${params.toString()}`,
+    );
 
-  const result = (await res.json()) as SteamGameDetailResponse;
-  const game = result[gameId].data;
-
-  return !!game ? game : null;
+    return result?.[gameId]?.data ?? null;
+  } catch (error) {
+    console.error("Error fetching Steam game detail:", error);
+    return null;
+  }
 }
 
 export async function getSteamGameIcon(gameId: string) {
-  const steamDbApiKey = process.env.STEAM_DB_API_KEY!;
+  const steamDbApiKey = getSafeEnv("STEAM_DB_API_KEY");
 
-  const res = await fetch(
-    `https://www.steamgriddb.com/api/v2/icons/steam/${gameId}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${steamDbApiKey}`,
-        "Content-Type": "application/x-www-form-urlencoded",
+  try {
+    const { result } = await getFetch<SteamGameIconResponse>(
+      `https://www.steamgriddb.com/api/v2/icons/steam/${gameId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${steamDbApiKey}`,
+        },
       },
-    },
-  );
+    );
 
-  const result = (await res.json()) as SteamGameIconResponse;
-  const officialIcon = result.data.find((icon) => icon.style === "official");
-  const customIcon = !officialIcon ? result.data[0] : null;
+    const icons = result?.data ?? [];
 
-  return officialIcon ? officialIcon : customIcon ? customIcon : null;
+    const officialIcon = icons.find((icon) => icon.style === "official");
+    const customIcon = !officialIcon ? (icons[0] ?? null) : null;
+
+    return officialIcon || customIcon;
+  } catch (error) {
+    console.error("Error fetching Steam game icon:", error);
+    return null;
+  }
 }
