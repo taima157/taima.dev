@@ -1,6 +1,7 @@
 "use client";
 
 import { SteamCurrentStatus, SteamGame } from "@/types/steam";
+import { VideogameAsset } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
@@ -75,7 +76,7 @@ export function SteamStatus() {
 
   return (
     <div className="flex gap-4 items-center w-full">
-      {data?.user && (
+      {data?.user ? (
         <Image
           className="rounded-md block"
           src={data.user.avatarfull}
@@ -83,6 +84,13 @@ export function SteamStatus() {
           width={80}
           height={80}
         />
+      ) : (
+        <div className="h-20 w-20 rounded-md bg-white/5 shrink-0 flex items-center justify-center">
+          <VideogameAsset
+            className="text-stone-800"
+            style={{ width: 40, height: 40 }}
+          />
+        </div>
       )}
 
       <div className="flex flex-col items-start gap-2 flex-1 min-w-0">
