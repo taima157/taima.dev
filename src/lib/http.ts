@@ -44,14 +44,17 @@ export async function fetchJson<T>(url: string, options?: RequestInit) {
   return { result, response } as FetchResult<T>;
 }
 
-export async function getFetch<T>(url: string, options?: RequestInit) {
+export async function getFetch<T>(
+  url: string,
+  options?: Omit<RequestInit, "method">,
+) {
   return await fetchJson<T>(url, { method: "GET", ...options });
 }
 
 export async function postFetch<T, K extends BodyInit>(
   url: string,
   body: K,
-  options?: RequestInit,
+  options?: Omit<RequestInit, "method" | "body">,
 ) {
   return await fetchJson<T>(url, { method: "POST", body, ...options });
 }
