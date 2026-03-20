@@ -51,13 +51,17 @@ function SteamPlayingStatus({
 
   return (
     <div className="flex items-center gap-2">
-      <Image
-        className="rounded-md block shrink-0"
-        src={game.icon}
-        alt="Current game icon playing on Steam"
-        width={25}
-        height={25}
-      />
+      {game.icon ? (
+        <Image
+          className="rounded-md block shrink-0"
+          src={game.icon}
+          alt="Current game icon playing on Steam"
+          width={25}
+          height={25}
+        />
+      ) : (
+        <div className="h-6 w-6 rounded bg-white/2 animate-pulse backdrop-blur shrink-0" />
+      )}
 
       <span className="text-sm font-semibold text-green-400 animate-pulse backdrop-blur line-clamp-2">
         {game.name} <span className="text-green-600">- Currently playing</span>
