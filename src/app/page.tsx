@@ -35,6 +35,8 @@ export default function Home() {
         <Projects />
 
         <Social />
+
+        <hr className="border-zinc-800" />
       </div>
 
       <Footer />

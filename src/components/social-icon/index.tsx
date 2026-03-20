@@ -1,18 +1,22 @@
+import { Link as LinkIcon } from "@mui/icons-material";
 import Link from "next/link";
 
 type SocialIconProps = {
   url: string;
   name: string;
-  icon: React.ReactNode;
 };
 
-export function SocialIcon({ url, name, icon }: SocialIconProps) {
+export function SocialIcon({ url, name }: SocialIconProps) {
   return (
-    <Link href={url} target="_blank" rel="noopener noreferrer">
-      <div className="border border-white/4 flex gap-2 items-center rounded-md bg-white/2 p-2">
-        {icon}
-        <span className="text-sm font-medium text-zinc-300">{name}</span>
-      </div>
+    <Link
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex font-semibold gap-2 items-center border-b border-transparent hover:border-zinc-300 transition-colors duration-200"
+    >
+      <span className="text-sm text-zinc-300">{name}</span>
+
+      <LinkIcon className="text-zinc-500" style={{ fontSize: 18 }} />
     </Link>
   );
 }

@@ -111,7 +111,7 @@ export function SpotifyStatus() {
           />
         </Link>
       ) : (
-        <div className="h-20 w-20 rounded-sm bg-white/2 flex items-center justify-center">
+        <div className="h-20 w-20 rounded-sm bg-white/2 flex items-center justify-center border border-white/4">
           <Headphones
             className="text-zinc-800"
             style={{ width: 40, height: 40 }}
