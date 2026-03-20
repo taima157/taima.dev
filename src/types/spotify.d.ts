@@ -43,7 +43,7 @@ export interface ExternalUrls {
 
 export interface Item {
   album: Album;
-  artists: Artist2[];
+  artists: Artist[];
   disc_number: number;
   duration_ms: number;
   explicit: boolean;

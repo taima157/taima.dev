@@ -1,3 +1,4 @@
+import { createHttpClient } from "@/lib/http";
 import {
   SteamCurrentStatus,
   SteamGameDetailResponse,
@@ -7,22 +8,33 @@ import {
   SteamOwnedGameResponse,
   SteamUserSummaryResponse,
 } from "@/types/steam";
-import { getSafeEnv, getFetch } from "@/lib/http";
+import { getSafeEnv } from "./helpers";
 
 const STEAM_MOST_PLAYED_MAX_GAMES = 3;
-const steamId = getSafeEnv("STEAM_ID");
-const steamApiKey = getSafeEnv("STEAM_API_KEY");
 const steamDbApiKey = getSafeEnv("STEAM_DB_API_KEY");
 
+const steamClient = createHttpClient("https://api.steampowered.com");
+const steamStoreClient = createHttpClient(
+  "https://store.steampowered.com/api",
+  {
+    Authorization: steamDbApiKey,
+  },
+);
+const steamDbClient = createHttpClient("https://www.steamgriddb.com/api/v2");
+
 export async function getSteamSummary() {
+  const steamApiKey = getSafeEnv("STEAM_API_KEY");
+  const steamId = getSafeEnv("STEAM_ID");
+
   const params = new URLSearchParams({
     key: steamApiKey,
     steamids: steamId,
   });
 
   try {
-    const { result } = await getFetch<SteamUserSummaryResponse>(
-      `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2?${params.toString()}`,
+    const { result } = await steamClient.get<SteamUserSummaryResponse>(
+      "/ISteamUser/GetPlayerSummaries/v2",
+      params,
     );
 
     return result?.response?.players?.[0] ?? null;
@@ -36,8 +48,9 @@ export async function getSteamGameDetail(gameId: string) {
   const params = new URLSearchParams({ appids: gameId });
 
   try {
-    const { result } = await getFetch<SteamGameDetailResponse>(
-      `https://store.steampowered.com/api/appdetails?${params.toString()}`,
+    const { result } = await steamStoreClient.get<SteamGameDetailResponse>(
+      "/appdetails",
+      params,
     );
 
     return result?.[gameId]?.data ?? null;
@@ -49,13 +62,8 @@ export async function getSteamGameDetail(gameId: string) {
 
 export async function getSteamGameIcon(gameId: string) {
   try {
-    const { result } = await getFetch<SteamGameIconResponse>(
-      `https://www.steamgriddb.com/api/v2/icons/steam/${gameId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${steamDbApiKey}`,
-        },
-      },
+    const { result } = await steamDbClient.get<SteamGameIconResponse>(
+      `/icons/steam/${gameId}`,
     );
 
     const icons = result?.data ?? [];
@@ -71,6 +79,9 @@ export async function getSteamGameIcon(gameId: string) {
 }
 
 export async function getSteamOwnedGames(): Promise<SteamOwnedGame[]> {
+  const steamApiKey = getSafeEnv("STEAM_API_KEY");
+  const steamId = getSafeEnv("STEAM_ID");
+
   const params = new URLSearchParams({
     key: steamApiKey,
     steamid: steamId,
@@ -78,8 +89,9 @@ export async function getSteamOwnedGames(): Promise<SteamOwnedGame[]> {
   });
 
   try {
-    const { result } = await getFetch<SteamOwnedGameResponse>(
-      `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001?${params.toString()}`,
+    const { result } = await steamClient.get<SteamOwnedGameResponse>(
+      "/IPlayerService/GetOwnedGames/v0001",
+      params,
     );
 
     return result?.response.games || [];
@@ -120,7 +132,7 @@ export async function getSteamCurrentStatus(): Promise<SteamCurrentStatus | null
       publishers: gameDetail?.publishers,
       icon: gameIcon?.thumb,
     },
-  } as SteamCurrentStatus;
+  };
 }
 
 export async function getSteamMostPlayed(): Promise<SteamMostPlayedResponse[]> {

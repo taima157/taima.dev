@@ -1,15 +1,19 @@
-import { getSafeEnv, getFetch, postFetch, HttpError } from "@/lib/http";
+import { createHttpClient, HttpError } from "@/lib/http";
 import {
   Artist,
   SpotifyCurrentTrack,
   SpotifyCurrentTrackResponse,
   SpotifyToken,
 } from "@/types/spotify";
+import { getSafeEnv } from "./helpers";
 
 let tokenCache: {
   accessToken: string;
   expiresAt: number;
 } | null = null;
+
+const spotifyClient = createHttpClient("https://api.spotify.com/v1");
+const spotifyAuthClient = createHttpClient("https://accounts.spotify.com/api");
 
 export async function getAccessToken() {
   const now = Date.now();
@@ -29,16 +33,13 @@ export async function getAccessToken() {
   });
 
   try {
-    const { result } = await postFetch<SpotifyToken, URLSearchParams>(
-      "https://accounts.spotify.com/api/token",
-      body,
-      {
-        headers: {
-          Authorization: `Basic ${basic}`,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      },
-    );
+    const { result } = await spotifyAuthClient.post<
+      SpotifyToken,
+      URLSearchParams
+    >("/token", body, {
+      Authorization: `Basic ${basic}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
 
     if (result) {
       tokenCache = {
@@ -59,13 +60,10 @@ export async function getAccessToken() {
 export async function fetchCurrentTrack(accessToken: string) {
   if (!accessToken) throw new Error("No access token");
 
-  return await getFetch<SpotifyCurrentTrack>(
-    "https://api.spotify.com/v1/me/player/currently-playing",
+  return await spotifyClient.get<SpotifyCurrentTrack>(
+    "/me/player/currently-playing",
     {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
+      Authorization: `Bearer ${accessToken}`,
     },
   );
 }

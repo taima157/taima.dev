@@ -33,9 +33,9 @@ export type SteamGameIconResponse = {
 };
 
 export type SteamGame = {
-  name: string;
-  publishers: string[];
-  icon: string;
+  name?: string;
+  publishers?: string[];
+  icon?: string;
 };
 
 export type SteamCurrentStatus = {
