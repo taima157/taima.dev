@@ -26,6 +26,13 @@ interface IHttpClient {
     body: K,
     headers?: HeadersInit,
   ): Promise<FetchResult<T>>;
+  put<T, K extends BodyInit>(
+    url: string,
+    pathVariables?: Record<string, string | number>,
+    body?: K,
+    headers?: HeadersInit,
+  ): Promise<FetchResult<T>>;
+  delete<T>(url: string, headers?: HeadersInit): Promise<FetchResult<T>>;
 }
 
 class HttpClient implements IHttpClient {
@@ -71,9 +78,10 @@ class HttpClient implements IHttpClient {
     headers?: HeadersInit,
   ): Promise<FetchResult<T>> {
     const hasParams = paramsOrHeaders instanceof URLSearchParams;
-    const finalUrl = hasParams
-      ? `${this.baseUrl}${url}?${paramsOrHeaders.toString()}`
-      : `${this.baseUrl}${url}`;
+    const finalUrl = this.buildUrl(
+      url,
+      hasParams ? paramsOrHeaders : undefined,
+    );
 
     const finalHeaders = hasParams ? headers : paramsOrHeaders;
 
@@ -88,11 +96,52 @@ class HttpClient implements IHttpClient {
     body: K,
     headers?: HeadersInit,
   ): Promise<FetchResult<T>> {
-    return await this.fetchJson<T>(`${this.baseUrl}${url}`, {
+    return await this.fetchJson<T>(this.buildUrl(url), {
       method: "POST",
       body,
       headers,
     });
+  }
+
+  async put<T, K extends BodyInit>(
+    url: string,
+    pathVariables?: Record<string, string | number>,
+    body?: K,
+    headers?: HeadersInit,
+  ): Promise<FetchResult<T>> {
+    const urlWithVariables = pathVariables
+      ? this.buildUrlWithVariables(url, pathVariables)
+      : url;
+
+    return await this.fetchJson<T>(this.buildUrl(urlWithVariables), {
+      method: "PUT",
+      body,
+      headers,
+    });
+  }
+
+  async delete<T>(url: string, headers?: HeadersInit): Promise<FetchResult<T>> {
+    return await this.fetchJson<T>(this.buildUrl(url), {
+      method: "DELETE",
+      headers,
+    });
+  }
+
+  private buildUrl(url: string, params?: URLSearchParams) {
+    return params
+      ? `${this.baseUrl}${url}?${params.toString()}`
+      : `${this.baseUrl}${url}`;
+  }
+
+  private buildUrlWithVariables(
+    url: string,
+    pathVariables: Record<string, string | number>,
+  ) {
+    let newUrl = url;
+    for (const [key, value] of Object.entries(pathVariables)) {
+      newUrl = newUrl.replace(`{${key}}`, String(value));
+    }
+    return newUrl;
   }
 }
 
