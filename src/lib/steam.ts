@@ -20,7 +20,11 @@ const steamStoreClient = createHttpClient(
     Authorization: steamDbApiKey,
   },
 );
-const steamDbClient = createHttpClient("https://www.steamgriddb.com/api/v2");
+const steamDbClient = createHttpClient("https://www.steamgriddb.com/api/v2", 
+  {
+    Authorization: `Bearer ${steamDbApiKey}`,
+  }
+);
 
 export async function getSteamSummary() {
   const steamApiKey = getSafeEnv("STEAM_API_KEY");
@@ -67,6 +71,8 @@ export async function getSteamGameIcon(gameId: string) {
     );
 
     const icons = result?.data ?? [];
+
+    // console.log(result);
 
     const officialIcon = icons.find((icon) => icon.style === "official");
     const customIcon = !officialIcon ? (icons[0] ?? null) : null;
